@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="main.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    </head>
+    <title> PawLytics - Scout </title>
+    <body>
+        
+            
+            <p>
+                PawLytics Scout
+            </p>
+
+            <h1>Match Scouting</h1>
+
+            <form method="POST" action="/scout">
+                <div class="match">
+                    <h2>Match Information</h2>
+                    <label for="matchNumber">Match Number:</label>
+                    <input type="number" id="matchNumber" name="matchNumber" required>
+
+                    <label for="teamNumber">Team Number:</label>
+                    <input type="number" id="teamNumber" name="teamNumber" required>
+
+                    <label for="scoutName">Scout Name:</label>
+                    <input type="text" id="scoutName" name="scoutName" required>
+                </div>
+                <div class="autonomous">
+                    <h2>Autonomous Period</h2>
+                    <label for="mobility">Passes Mobility Line:</label>
+                    <input type="checkbox" id="mobility" name="mobility">
+
+                    <button id="l1auto" type = "button" onclick="updateL1AutoScore()">L1 Coral Score</button>
+                    <button id="undol1auto" type = "button" onclick="undoL1AutoScore()">Undo L1 Coral Score</button>
+                    <button id="l2auto" type = "button" onclick="updateL2AutoScore()">L2 Coral Score</button>
+                    <button id="undol2auto" type = "button" onclick="undoL2AutoScore()">Undo L2 Coral Score</button>
+                    <button id="l3auto" type = "button" onclick="updateL3AutoScore()">L3 Coral Score</button>
+                    <button id="undol3auto" type = "button" onclick="undoL3AutoScore()">Undo L3 Coral Score</button>
+                    <button id="l4auto" type = "button" onclick="updateL4AutoScore()">L4 Coral Score</button>
+                    <button id="undol4auto" type = "button" onclick="undoL4AutoScore()">Undo L4 Coral Score</button>
+
+                    <button id="netAuto" type = "button" onclick="updateNetAutoScore()">Net Algae Score</button>
+                    <button id="undoNetAuto" type = "button" onclick="undoNetAutoScore()">Undo Net Algae Score</button>
+                    <button id="processorAuto" type = "button" onclick="updateProcessorAutoScore()">Processor Algae Score</button>
+                    <button id="undoProcessorAuto" type = "button" onclick="undoProcessorAutoScore()">Undo Processor Algae Score</button>
+
+                </div>
+
+                <div class="teleop">
+                    <h2>Teleoperated Period</h2>
+                    <button id="l1teleop" type = "button" onclick="updateL1TeleopScore()">L1 Coral Score</button>
+                    <button id="undol1teleop" type = "button" onclick="undoL1TeleopScore()">Undo L1 Coral Score</button>
+                    <button id="l2teleop" type = "button" onclick="updateL2TeleopScore()">L2 Coral Score</button>
+                    <button id="undol2teleop" type = "button" onclick="undoL2TeleopScore()">Undo L2 Coral Score</button>
+                    <button id="l3teleop" type = "button" onclick="updateL3TeleopScore()">L3 Coral Score</button>
+                    <button id="undol3teleop" type = "button" onclick="undoL3TeleopScore()">Undo L3 Coral Score</button>
+                    <button id="l4teleop" type = "button" onclick="updateL4TeleopScore()">L4 Coral Score</button>
+                    <button id="undol4teleop" type = "button" onclick="undoL4TeleopScore()">Undo L4 Coral Score</button>
+
+                    
+                    <button id="netTeleop" type = "button" onclick="updateNetTeleopScore()">Net Algae Score</button>
+                    <button id="undoNetTeleop" type = "button" onclick="undoNetTeleopScore()">Undo Net Algae Score</button>
+                    <button id="processorTeleop" type = "button" onclick="updateProcessorTeleopScore()">Processor Algae Score</button>
+                    <button id="undoProcessorTeleop" type = "button" onclick="undoProcessorTeleopScore()">Undo Processor Algae Score</button>
+                    
+                </div>
+
+                <div class="endgame">
+                    <h2>Endgame Period</h2>
+                    <label for="endgameAction">Endgame Action:</label>
+                    <select id="endgameAction" name="endgameAction">
+                        <option value="none">Did Not Score Underneath Barge</option>
+                        <option value="parked">Parked</option>
+                        <option value="shallow">Shallow Climb</option>
+                        <option value="deep">Deep Climb</option>
+                    </select>
+
+                    
+                </div>
+
+                <div class="comments">
+                    <h2>Comments</h2>
+                    <label for="offensiveComments">Offensive Comments:</label>
+                    <textarea id="offensiveComments" name="offensiveComments" rows="4" cols="50" placeholder="Offensive Comments (scoring, placement, fouls etc)"></textarea>
+                    <label for="defensiveComments">Defensive Comments:</label>
+                    <textarea id="defensiveComments" name="defensiveComments" rows="4" cols="50" placeholder="Defensive Comments (defense, fouls, driving, etc)"></textarea>
+                    <label for="strategyComments">Other Comments:</label>
+                    <textarea id="otherComments" name="otherComments" rows="4" cols="50" placeholder="Other Comments (mechanical issues, failures, mishaps, things done well, etc)"></textarea>
+                </div>
+
+                
+
+                <!-- Hidden inputs for JS scores -->
+                <input type="hidden" id="l1AutoInput" name="l1AutoScore">
+                <input type="hidden" id="l2AutoInput" name="l2AutoScore">
+                <input type="hidden" id="l3AutoInput" name="l3AutoScore">
+                <input type="hidden" id="l4AutoInput" name="l4AutoScore">
+                <input type="hidden" id="netAutoInput" name="netAutoScore">
+                <input type="hidden" id="processorAutoInput" name="processorAutoScore">
+
+                <input type="hidden" id="l1TeleopInput" name="l1TeleopScore">
+                <input type="hidden" id="l2TeleopInput" name="l2TeleopScore">
+                <input type="hidden" id="l3TeleopInput" name="l3TeleopScore">
+                <input type="hidden" id="l4TeleopInput" name="l4TeleopScore">
+                <input type="hidden" id="netTeleopInput" name="netTeleopScore">
+                <input type="hidden" id="processorTeleopInput" name="processorTeleopScore">
+
+                <input type="submit" value="Submit">
+            </form>
+
+            <script>
+                let l1AutoScore = 0;
+                let l2AutoScore = 0;
+                let l3AutoScore = 0;
+                let l4AutoScore = 0;
+                let netAutoScore = 0;
+                let processorAutoScore = 0;
+
+                let l1TeleopScore = 0;
+                let l2TeleopScore = 0;
+                let l3TeleopScore = 0;
+                let l4TeleopScore = 0;
+                let netTeleopScore = 0;
+                let processorTeleopScore = 0;
+
+                function updateL1AutoScore() {
+                    l1AutoScore += 1;
+                    document.getElementById("l1auto").innerText = "L1 Coral Score: " + l1AutoScore;
+                }
+
+                function undoL1AutoScore() {
+                    if (l1AutoScore > 0) {
+                        l1AutoScore -= 1;
+                        document.getElementById("l1auto").innerText = "L1 Coral Score: " + l1AutoScore;
+                    }
+                }
+
+                function updateL2AutoScore() {
+                    l2AutoScore += 1;
+                    document.getElementById("l2auto").innerText = "L2 Coral Score: " + l2AutoScore;
+                }
+
+                function undoL2AutoScore() {
+                    if (l2AutoScore > 0) {
+                        l2AutoScore -= 1;
+                        document.getElementById("l2auto").innerText = "L2 Coral Score: " + l2AutoScore;
+                    }
+                }
+
+                function updateL3AutoScore() {
+                    l3AutoScore += 1;
+                    document.getElementById("l3auto").innerText = "L3 Coral Score: " + l3AutoScore;
+                }
+
+                function undoL3AutoScore() {
+                    if (l3AutoScore > 0) {
+                        l3AutoScore -= 1;
+                        document.getElementById("l3auto").innerText = "L3 Coral Score: " + l3AutoScore;
+                    }
+                }
+
+                function updateL4AutoScore() {
+                    l4AutoScore += 1;
+                    document.getElementById("l4auto").innerText = "L4 Coral Score: " + l4AutoScore;
+                }
+
+                function undoL4AutoScore() {
+                    if (l4AutoScore > 0) {
+                        l4AutoScore -= 1;
+                        document.getElementById("l4auto").innerText = "L4 Coral Score: " + l4AutoScore;
+                    }
+                }
+
+                function updateNetAutoScore() {
+                    netAutoScore += 1; 
+                    document.getElementById("netAuto").innerText = "Net Algae Score: " + netAutoScore;
+                }
+
+                function undoNetAutoScore() {
+                    if (netAutoScore > 0) {
+                        netAutoScore -= 1;
+                        document.getElementById("netAuto").innerText = "Net Algae Score: " + netAutoScore;
+                    }
+                }
+                function updateProcessorAutoScore() {
+                    processorAutoScore += 1; 
+                    document.getElementById("processorAuto").innerText = "Processor Algae Score: " + processorAutoScore;
+                }
+                function undoProcessorAutoScore() {
+                    if (processorAutoScore > 0) {
+                        processorAutoScore -= 1;
+                        document.getElementById("processorAuto").innerText = "Processor Algae Score: " + processorAutoScore;
+                    }
+                }
+
+                function updateL1TeleopScore() {
+                    l1TeleopScore += 1;
+                    document.getElementById("l1teleop").innerText = "L1 Coral Score: " + l1TeleopScore;
+                }
+                function undoL1TeleopScore() {
+                    if (l1TeleopScore > 0) {
+                        l1TeleopScore -= 1;
+                        document.getElementById("l1teleop").innerText = "L1 Coral Score: " + l1TeleopScore;
+                    }
+                }
+                function updateL2TeleopScore() {
+                    l2TeleopScore += 1;
+                    document.getElementById("l2teleop").innerText = "L2 Coral Score: " + l2TeleopScore;
+                }
+                function undoL2TeleopScore() {
+                    if (l2TeleopScore > 0) {
+                        l2TeleopScore -= 1;
+                        document.getElementById("l2teleop").innerText = "L2 Coral Score: " + l2TeleopScore;
+                    }
+                }
+                function updateL3TeleopScore() {
+                    l3TeleopScore += 1;
+                    document.getElementById("l3teleop").innerText = "L3 Coral Score: " + l3TeleopScore;
+                }
+                function undoL3TeleopScore() {
+                    if (l3TeleopScore > 0) {
+                        l3TeleopScore -= 1;
+                        document.getElementById("l3teleop").innerText = "L3 Coral Score: " + l3TeleopScore;
+                    }
+                }
+                function updateL4TeleopScore() {
+                    l4TeleopScore += 1;
+                    document.getElementById("l4teleop").innerText = "L4 Coral Score: " + l4TeleopScore;
+                }
+                function undoL4TeleopScore() {
+                    if (l4TeleopScore > 0) {
+                        l4TeleopScore -= 1;
+                        document.getElementById("l4teleop").innerText = "L4 Coral Score: " + l4TeleopScore;
+                    }
+                }
+                function updateNetTeleopScore() {
+                    netTeleopScore += 1; 
+                    document.getElementById("netTeleop").innerText = "Net Algae Score: " + netTeleopScore;
+                }
+                function undoNetTeleopScore() {
+                    if (netTeleopScore > 0) {
+                        netTeleopScore -= 1;
+                        document.getElementById("netTeleop").innerText = "Net Algae Score: " + netTeleopScore;
+                    }
+                }
+                function updateProcessorTeleopScore() {
+                    processorTeleopScore += 1; 
+                    document.getElementById("processorTeleop").innerText = "Processor Algae Score: " + processorTeleopScore;
+                }
+                function undoProcessorTeleopScore() {
+                    if (processorTeleopScore > 0) {
+                        processorTeleopScore -= 1;
+                        document.getElementById("processorTeleop").innerText = "Processor Algae Score: " + processorTeleopScore;
+                    }
+                }
+
+                document.querySelector("form").addEventListener("submit", function () {
+                    document.getElementById("l1AutoInput").value = l1AutoScore;
+                    document.getElementById("l2AutoInput").value = l2AutoScore;
+                    document.getElementById("l3AutoInput").value = l3AutoScore;
+                    document.getElementById("l4AutoInput").value = l4AutoScore;
+                    document.getElementById("netAutoInput").value = netAutoScore;
+                    document.getElementById("processorAutoInput").value = processorAutoScore;
+
+                    document.getElementById("l1TeleopInput").value = l1TeleopScore;
+                    document.getElementById("l2TeleopInput").value = l2TeleopScore;
+                    document.getElementById("l3TeleopInput").value = l3TeleopScore;
+                    document.getElementById("l4TeleopInput").value = l4TeleopScore;
+                    document.getElementById("netTeleopInput").value = netTeleopScore;
+                    document.getElementById("processorTeleopInput").value = processorTeleopScore;
+                });
+            </script>
+
+            
+        
+    </body>
+<html>
